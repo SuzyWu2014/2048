@@ -5,11 +5,11 @@ from collections import defaultdict
 actions = ["Up", "Left", "Down", "Right", "Restart", "Exit"]
 letter_codes = [ord(ch) for ch in "NWSERQnwserq"]
 # "Up"-Nn, "Left"-Ww, "Down"-Ss, "Right"-Ee, "Restart"-Rr, "Exit"-Qq
-action_dict = dict(zip(letter_codes, actions*2))
+actions_dict = dict(zip(letter_codes, actions*2))
 
 def get_user_action(keyboard):
 	char = "N"
-	while char not in action_dict:
+	while char not in actions_dict:
 		char = keyboard.getch()
 	return actions_dict[char]
 
@@ -120,7 +120,7 @@ class GameField(object):
 			screen.addstr(string + '\n')
 
 		def draw_hor_separator():
-			line = "+" + ("+-------"*self.width+"+")[1:]
+			line = "+" + ("+------" * self.width + "+")[1:]
 			separator = defaultdict(lambda: line)
 			if not hasattr(draw_hor_separator, "counter"):
 				draw_hor_separator.counter = 0
@@ -128,7 +128,7 @@ class GameField(object):
 			draw_hor_separator.counter += 1 
 
 		def draw_row(row):
-			cast("".join("|{:^5}".format(num) if num > 0 else "|	" for num in row) +"|")
+			cast("".join("|{: ^5} ".format(num) if num > 0 else "|      " for num in row) +"|")
 
 		screen.clear()
 
