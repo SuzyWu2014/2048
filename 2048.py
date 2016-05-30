@@ -3,8 +3,8 @@ from random import randrange, choice
 from collections import defaultdict
 
 actions = ["Up", "Left", "Down", "Right", "Restart", "Exit"]
-letter_codes = [ord(ch) for ch in "NWSERQnwserq"]
-# "Up"-Nn, "Left"-Ww, "Down"-Ss, "Right"-Ee, "Restart"-Rr, "Exit"-Qq
+letter_codes = [ord(ch) for ch in "ULDREQuldreq"]
+# "Up"-Uu, "Left"-Ll, "Down"-Dd, "Right"-Rr, "Restart"-Ee, "Exit"-Qq
 actions_dict = dict(zip(letter_codes, actions*2))
 
 def get_user_action(keyboard):
@@ -110,10 +110,10 @@ class GameField(object):
 			return check[direction](self.field)
 		else:
 		 	return False
-# "Up"-Nn, "Left"-Ww, "Down"-Ss, "Right"-Ee, "Restart"-Rr, "Exit"-Qq
+# "Up"-Uu, "Left"-Ll, "Down"-Dd, "Right"-Rr, "Restart"-Ee, "Exit"-Qq
 	def draw(self, screen):
-		help_string1 = "(N)up (W)Left S(Down) E(Right)"	 
-		help_string2 = "(R)Restart (Q)Exit"
+		help_string1 = "(U)up (L)Left D(Down) R(Right)"	 
+		help_string2 = "(E)Restart (Q)Exit"
 		gameover_string = "			Game Over"
 		win_String ="	You win!"
 		def cast(string):
