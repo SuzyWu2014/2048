@@ -32,7 +32,7 @@ class GameField(object):
         self.score = 0
         self.highscore = 0
         self.reset()
-        print "init game field"
+        print("init game field")
 
     # board operations
     def spawn(self):
@@ -109,7 +109,7 @@ class GameField(object):
         check["Left"]=lambda field: any(
                         row_is_left_movable(row) for row in field)
         check["Right"]=lambda field: check["Left"](invert(field))
-        check["Up"] = lambda field: check["Left"](transpose(field))
+        check["Up"]= lambda field: check["Left"](transpose(field))
         check["Down"]=lambda field: check["Right"](transpose(field))
 
         if direction in check:
