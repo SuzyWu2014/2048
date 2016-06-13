@@ -44,7 +44,7 @@ class GameField(object):
     def reset(self):
         if self.score > self.highscore:
             self.highscore = self.score
-        self.field = [[0 for i in range(self.width)] for j in range(self.height)]]
+        self.field = [[0 for i in range(self.width)] for j in range(self.height)]
         self.spawn()
         self.spawn()
 
@@ -77,12 +77,11 @@ class GameField(object):
         moves["Left"] = lambda field: [move_row_left(row) for row in field]
         moves["Right"] = lambda field: invert(moves["Left"](invert(field)))
         moves["Up"] = lambda field: transpose(moves["Left"](transpose(field)))
-        moves["Down"] = lambda field: transpose(
-                moves["Right"](transpose(field)))
+        moves["Down"] = lambda field: transpose(moves["Right"](transpose(field)))
 
         if direction in moves:
             if self.move_is_possible(direction):
-                self.field=moves[direction](self.field)
+                self.field = moves[direction](self.field)
                 self.spawn()
                 return True
             else:
@@ -105,12 +104,11 @@ class GameField(object):
 
             return any(change(i) for i in range(len(row) - 1))
 
-        check={}
-        check["Left"]=lambda field: any(
-                        row_is_left_movable(row) for row in field)
-        check["Right"]=lambda field: check["Left"](invert(field))
-        check["Up"]= lambda field: check["Left"](transpose(field))
-        check["Down"]=lambda field: check["Right"](transpose(field))
+        check = {}
+        check["Left"] = lambda field: any(row_is_left_movable(row) for row in field)
+        check["Right"] = lambda field: check["Left"](invert(field))
+        check["Up"] = lambda field: check["Left"](transpose(field))
+        check["Down"] = lambda field: check["Right"](transpose(field))
 
         if direction in check:
             return check[direction](self.field)
@@ -119,18 +117,19 @@ class GameField(object):
 
 # "Up"-Uu, "Left"-Ll, "Down"-Dd, "Right"-Rr, "Restart"-Ee, "Exit"-Qq
     def draw(self, screen):
-        help_string1="(U)up (L)Left D(Down) R(Right)"
-        help_string2="(E)Restart (Q)Exit"
-        gameover_string="         Game Over"
-        win_String="   You win!"
+        help_string1 = "(U)up (L)Left D(Down) R(Right)"
+        help_string2 = "(E)Restart (Q)Exit"
+        gameover_string = "         Game Over"
+        win_String = "   You win!"
+
         def cast(string):
             screen.addstr(string + '\n')
 
         def draw_hor_separator():
-            line="+" + ("+------" * self.width + "+")[1:]
-            separator=defaultdict(lambda: line)
+            line = "+" + ("+------" * self.width + "+")[1:]
+            separator = defaultdict(lambda: line)
             if not hasattr(draw_hor_separator, "counter"):
-                draw_hor_separator.counter=0
+                draw_hor_separator.counter = 0
             cast(separator[draw_hor_separator.counter])
             draw_hor_separator.counter += 1
 
@@ -159,6 +158,7 @@ class GameField(object):
                 cast(help_string1)
         cast(help_string2)
 
+
 def main(stdscr):
     def init():
         # reset board
@@ -169,16 +169,16 @@ def main(stdscr):
         # draw board for GameOver or Win
         game_field.draw(stdscr)
         # get action from user: reset or over
-        action=get_user_action(stdscr)
-        responses=defaultdict(lambda: state)  # default is current state
-        responses["Restart"], responses["Exit"]="Init", "Exit"
+        action = get_user_action(stdscr)
+        responses = defaultdict(lambda: state)  # default is current state
+        responses["Restart"], responses["Exit"] = "Init", "Exit"
         return responses[action]
 
     def game():
         # draw current board state
         game_field.draw(stdscr)
         # get action from user
-        action=get_user_action(stdscr)
+        action = get_user_action(stdscr)
 
         if action == "Restart":
             return "Init"
@@ -191,7 +191,7 @@ def main(stdscr):
                 return "Gameover"
         return "Game"
 
-    state_actions={
+    state_actions = {
         "Init": init,
         "Win": lambda: not_game("Win"),
         "Gameover": lambda: not_game("Gameover"),
